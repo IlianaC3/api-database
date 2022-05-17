@@ -1,0 +1,90 @@
+<%- include('layouts/header') -%>
+
+<!-- <h5><a href="/agregar">Agregar producto</a></h5> -->
+
+<div id="accionIngresar" class="row">
+    <h3 class="col-sm-12">Ingresar nuevo producto</h3>
+    <form>
+        <div class="row">
+            <div class="col">
+                <input class="form-control" type="text" name="title" id="title"
+                    placeholder="Ingrese nombre del producto">
+            </div>
+            <div class="col">
+                <input class="form-control" type="number" name="price" id="price"
+                    placeholder="Ingrese precio del producto">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <input class="form-control" type="url" name="thumbnail" id="thumbnail"
+                    placeholder="Ingrese imagen del producto">
+            </div>
+            <div class="col">
+                <input class="btn btn-primary col-sm-4" type="button" value="Enviar" onclick="EnviarDatos()">
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="container scroll-y">
+    <h3>Lista de productos</h3>
+    <table class="table table-bordered table-striped" id="result">
+        <thead>
+            <th>Id</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody id="listProductos">
+            <% data.forEach(function(unique) { %>
+            <tr>
+                <td><%= unique.id %></td>
+                <td><%= unique.title %></td>
+                <td><%= unique.price %></td>
+                <td><img src="<%= unique.thumbnail %>" style="width: 25%" />
+                <td>
+                    <a class="btn btn-outline-primary"
+                        href="/editar/<%= unique.id %>">Editar</a>
+                    -
+                    <a class="btn btn-outline-danger"
+                        onclick="eliminarProducto('<%= unique.id %>')">Eliminar</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<hr>
+<!-- AGREGAR MENSAJE -->
+<div id="accionMensaje" class="row container">
+    <h5>Centro de Mensajes</h5>
+    <form>
+        <div class="row">
+            <div class="col-sm-3">
+                <input class="form-control" type="email" name="email" id="email" required="required"
+                    placeholder="Ingrese email">
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="text" name="message" id="message" required="required" 
+                    placeholder="Mensaje">
+            </div>
+            <div class="col-3">
+                <input class="btn btn-primary col-sm-4" type="button" value="Enviar" onclick="enviarMensaje()">
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<!-- Lista de mensajes -->
+<div class="row container">
+    <h5>Mensajes</h5>
+    <ul id="listMensajes" class="scroll-y">
+
+    </ul>
+</div>
+
+<%- include('layouts/footer') -%>
